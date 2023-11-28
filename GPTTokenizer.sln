@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34302.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTTokenizer", "GPTTokenizer\GPTTokenizer.csproj", "{938DC220-9E6A-4BBC-916B-A88C53604349}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTPTokenizer.Console", "GTPTokenizer.Console\GTPTokenizer.Console.csproj", "{F806CDE8-5639-4829-8679-3888225699D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{938DC220-9E6A-4BBC-916B-A88C53604349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{938DC220-9E6A-4BBC-916B-A88C53604349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{938DC220-9E6A-4BBC-916B-A88C53604349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{938DC220-9E6A-4BBC-916B-A88C53604349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F806CDE8-5639-4829-8679-3888225699D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F806CDE8-5639-4829-8679-3888225699D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F806CDE8-5639-4829-8679-3888225699D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F806CDE8-5639-4829-8679-3888225699D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C1DBF19-6946-47A4-A333-4211AE6984AA}
+	EndGlobalSection
+EndGlobal
