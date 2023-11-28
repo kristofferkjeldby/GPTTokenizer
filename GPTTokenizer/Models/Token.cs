@@ -1,6 +1,5 @@
 ﻿namespace GPTTokenizer.Models
 {
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
 
@@ -16,8 +15,6 @@
         {
             Value = value.ToString();
         }
-
-
 
         public static Token Merge(Token a, Token b) 
         {
