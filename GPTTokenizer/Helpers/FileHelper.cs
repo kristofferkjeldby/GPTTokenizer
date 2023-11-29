@@ -12,25 +12,7 @@
         {
             var mergeRules = new List<MergeRule>();
 
-            List<string> lines;
-
-            if (string.IsNullOrEmpty(mergesFilePath))
-            {
-                lines = new List<string>();
-
-                using (StringReader reader = new StringReader(Properties.Resources.MergeRules))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        lines.Add(line);
-                    }
-                }
-            }
-            else
-            {
-                lines = File.ReadLines(mergesFilePath).ToList();
-            }
+            List<string> lines = GetTiles(mergesFilePath, Properties.Resources.MergeRules);
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -44,28 +26,49 @@
 
         public static Dictionary<Token, int> ReadVocabulary(string vocabularyFilePath = null)
         {
-            var vocabulary = new Dictionary<Token, int>(); 
+            var vocabulary = new Dictionary<Token, int>();
 
-            using (StringReader reader = new StringReader(Properties.Resources.Vocabulary))
+            List<string> lines = GetTiles(vocabularyFilePath, Properties.Resources.Vocabulary);
+
+            for (var i = 0; i < lines.Count(); i++)
             {
-                string line;
+                var parts = lines[i].Trim().Split(':').ToArray();
 
-                while ((line = reader.ReadLine()) != null)
-                {
-                    var parts = line.Trim().Split(':').ToArray();
+                if (parts.Length < 2)
+                    continue;
 
-                    if (parts.Length < 2)
-                        continue;
+                if (!int.TryParse(parts.Last().Trim(' ', ','), out var priority))
+                    continue;
 
-                    if (!int.TryParse(parts.Last().Trim(' ', ','), out var priority))
-                        continue;
-
-                    vocabulary.Add(new Token(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"')), priority);
-                }
+                vocabulary.Add(new Token(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"')), priority);
             }
 
             return vocabulary;
+        }
 
+        private static List<string> GetTiles(string filePath, string fallBack)
+        {
+            List<string> lines;
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                lines = new List<string>();
+
+                using (StringReader reader = new StringReader(fallBack))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+                }
+            }
+            else
+            {
+                lines = File.ReadLines(filePath).ToList();
+            }
+
+            return lines;
         }
     }
 }
