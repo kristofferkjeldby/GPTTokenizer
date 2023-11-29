@@ -2,7 +2,6 @@
 {
     using GPTTokenizer.Models.Merge;
     using GPTTokenizer.Models;
-    using Newtonsoft.Json.Linq;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -45,10 +44,28 @@
 
         public static Dictionary<Token, int> ReadVocabulary(string vocabularyFilePath = null)
         {
-            var vocabularyJson = string.IsNullOrEmpty(vocabularyFilePath) ?
-                JObject.Parse(Properties.Resources.Vocabulary) :
-                JObject.Parse(File.ReadAllText(vocabularyFilePath));
-            return vocabularyJson.Children().Cast<JProperty>().ToDictionary(j => new Token(j.Name), j => j.Value.ToObject<int>());
+            var vocabulary = new Dictionary<Token, int>(); 
+
+            using (StringReader reader = new StringReader(Properties.Resources.Vocabulary))
+            {
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var parts = line.Trim().Split(':').ToArray();
+
+                    if (parts.Length < 2)
+                        continue;
+
+                    if (!int.TryParse(parts.Last().Trim(' ', ','), out var priority))
+                        continue;
+
+                    vocabulary.Add(new Token(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"')), priority);
+                }
+            }
+
+            return vocabulary;
+
         }
     }
 }
