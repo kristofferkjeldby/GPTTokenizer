@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MergeRules" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\merges.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="merges_GTP3_5_turbo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\merges_GTP3_5_turbo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Vocabulary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vocab.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="merges_GTP4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\merges_GTP4.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="vocab_GTP3_5_turbo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vocab_GTP3_5_turbo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="vocab_GTP4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vocab_GTP4.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

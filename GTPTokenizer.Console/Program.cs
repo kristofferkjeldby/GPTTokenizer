@@ -26,7 +26,7 @@
                 System.Console.WriteLine();
             }
 
-            var tokenizer = new Tokenizer();
+            var tokenizer = new Tokenizer(GTPModel.GTP3_5_turbo);
 
             switch (command.ToLowerInvariant())
             {

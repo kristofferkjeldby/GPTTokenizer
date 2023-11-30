@@ -49,6 +49,7 @@
     <Compile Include="Models\Merge\MergeLog.cs" />
     <Compile Include="Models\Merge\MergeRule.cs" />
     <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\GTPModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -64,10 +65,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\merges.txt" />
+    <None Include="Resources\merges_GTP3_5_turbo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\vocab.txt" />
+    <None Include="Resources\merges_GTP4.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vocab_GTP3_5_turbo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vocab_GTP4.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

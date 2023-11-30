@@ -5,14 +5,23 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using GPTTokenizer.Extensions;
 
     internal static class FileHelper
     {
-        public static List<MergeRule> ReadMergeRules(string mergesFilePath = null)
+        public static List<MergeRule> ReadMergeRules(string filePath) 
+        {
+            return ReadMergeRules(File.ReadLines(filePath).ToArray());
+        }
+
+        public static List<MergeRule> ReadMergeRules(GTPModel model)
+        {
+            return ReadMergeRules(GetResource("merges", model).Lines());
+        }
+
+        private static List<MergeRule> ReadMergeRules(string[] lines)
         {
             var mergeRules = new List<MergeRule>();
-
-            List<string> lines = GetFiles(mergesFilePath, Properties.Resources.MergeRules);
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -24,11 +33,19 @@
             return mergeRules;
         }
 
-        public static Dictionary<Token, int> ReadVocabulary(string vocabularyFilePath = null)
+        public static Dictionary<Token, int> ReadVocabulary(string filePath)
+        {
+            return ReadVocabulary(File.ReadLines(filePath).ToArray());
+        }
+
+        public static Dictionary<Token, int> ReadVocabulary(GTPModel model)
+        {
+            return ReadVocabulary(GetResource("vocab", model).Lines());
+        }
+
+        private static Dictionary<Token, int> ReadVocabulary(string[] lines)
         {
             var vocabulary = new Dictionary<Token, int>();
-
-            List<string> lines = GetFiles(vocabularyFilePath, Properties.Resources.Vocabulary);
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -46,29 +63,9 @@
             return vocabulary;
         }
 
-        private static List<string> GetFiles(string filePath, string fallBack)
+        private static string GetResource(string prefix, GTPModel model)
         {
-            List<string> lines;
-
-            if (string.IsNullOrEmpty(filePath))
-            {
-                lines = new List<string>();
-
-                using (StringReader reader = new StringReader(fallBack))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        lines.Add(line);
-                    }
-                }
-            }
-            else
-            {
-                lines = File.ReadLines(filePath).ToList();
-            }
-
-            return lines;
+            return Properties.Resources.ResourceManager.GetString($"{prefix}_{model}");
         }
     }
 }

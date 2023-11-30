@@ -14,7 +14,13 @@
 
         private IDictionary<Token, int> Vocabulary { get; }
 
-        public Tokenizer(string mergesFile = null, string vocabularyFile = null)
+        public Tokenizer(GTPModel model)
+        {
+            MergeRules = FileHelper.ReadMergeRules(model).OrderBy(r => r.Priority);
+            Vocabulary = FileHelper.ReadVocabulary(model);
+        }
+
+        public Tokenizer(string mergesFile, string vocabularyFile)
         {
             MergeRules = FileHelper.ReadMergeRules(mergesFile).OrderBy(r => r.Priority);
             Vocabulary = FileHelper.ReadVocabulary(vocabularyFile);

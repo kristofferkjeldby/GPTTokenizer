@@ -175,9 +175,130 @@ namespace GPTTokenizer.Properties {
         ///Ġ &lt;
         ///a [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string MergeRules {
+        internal static string merges_GTP3_5_turbo {
             get {
-                return ResourceManager.GetString("MergeRules", resourceCulture);
+                return ResourceManager.GetString("merges_GTP3_5_turbo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version: 0.2
+        ///Ġ Ġ
+        ///ĠĠ ĠĠ
+        ///i n
+        ///Ġ t
+        ///ĠĠĠĠ ĠĠĠĠ
+        ///e r
+        ///ĠĠ Ġ
+        ///o n
+        ///Ġ a
+        ///r e
+        ///a t
+        ///s t
+        ///e n
+        ///o r
+        ///Ġt h
+        ///Ċ Ċ
+        ///Ġ c
+        ///l e
+        ///Ġ s
+        ///i t
+        ///a n
+        ///a r
+        ///a l
+        ///Ġth e
+        ///; Ċ
+        ///Ġ p
+        ///Ġ f
+        ///o u
+        ///Ġ =
+        ///i s
+        ///ĠĠĠĠ ĠĠĠ
+        ///in g
+        ///e s
+        ///Ġ w
+        ///i on
+        ///e d
+        ///i c
+        ///Ġ b
+        ///Ġ d
+        ///e t
+        ///Ġ m
+        ///Ġ o
+        ///ĉ ĉ
+        ///r o
+        ///a s
+        ///e l
+        ///c t
+        ///n d
+        ///Ġ in
+        ///Ġ h
+        ///en t
+        ///i d
+        ///Ġ n
+        ///a m
+        ///ĠĠĠĠĠĠĠĠ ĠĠĠ
+        ///Ġt o
+        ///Ġ re
+        ///- -
+        ///Ġ {
+        ///Ġo f
+        ///o m
+        ///) ;Ċ
+        ///i m
+        ///č Ċ
+        ///Ġ (
+        ///i l
+        //// /
+        ///Ġa nd
+        ///u r
+        ///s e
+        ///Ġ l
+        ///e x
+        ///Ġ S
+        ///a d
+        ///Ġ &quot;
+        ///c h
+        ///u t
+        ///i f
+        ///* *
+        ///Ġ }
+        ///e m
+        ///o l
+        ///ĠĠĠĠĠĠĠĠ ĠĠĠĠĠĠĠĠ
+        ///t h
+        ///) Ċ
+        ///Ġ{ Ċ
+        ///Ġ g
+        ///i g
+        ///i v
+        ///, Ċ
+        ///c e
+        ///o d
+        ///Ġ v
+        ///at e
+        ///Ġ T
+        ///a g
+        ///a y
+        ///Ġ *
+        ///o t
+        ///u s
+        ///Ġ C
+        ///Ġ st
+        ///Ġ I
+        ///u n
+        ///u l
+        ///u e
+        ///Ġ A
+        ///o w
+        ///Ġ &apos;
+        ///e w
+        ///Ġ &lt;
+        ///a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string merges_GTP4 {
+            get {
+                return ResourceManager.GetString("merges_GTP4", resourceCulture);
             }
         }
         
@@ -232,9 +353,66 @@ namespace GPTTokenizer.Properties {
         ///  &quot;O&quot;: 46,
         ///   [rest of string wa....
         /// </summary>
-        internal static string Vocabulary {
+        internal static string vocab_GTP3_5_turbo {
             get {
-                return ResourceManager.GetString("Vocabulary", resourceCulture);
+                return ResourceManager.GetString("vocab_GTP3_5_turbo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;!&quot;: 0,
+        ///  &quot;\&quot;&quot;: 1,
+        ///  &quot;#&quot;: 2,
+        ///  &quot;$&quot;: 3,
+        ///  &quot;%&quot;: 4,
+        ///  &quot;&amp;&quot;: 5,
+        ///  &quot;&apos;&quot;: 6,
+        ///  &quot;(&quot;: 7,
+        ///  &quot;)&quot;: 8,
+        ///  &quot;*&quot;: 9,
+        ///  &quot;+&quot;: 10,
+        ///  &quot;,&quot;: 11,
+        ///  &quot;-&quot;: 12,
+        ///  &quot;.&quot;: 13,
+        ///  &quot;/&quot;: 14,
+        ///  &quot;0&quot;: 15,
+        ///  &quot;1&quot;: 16,
+        ///  &quot;2&quot;: 17,
+        ///  &quot;3&quot;: 18,
+        ///  &quot;4&quot;: 19,
+        ///  &quot;5&quot;: 20,
+        ///  &quot;6&quot;: 21,
+        ///  &quot;7&quot;: 22,
+        ///  &quot;8&quot;: 23,
+        ///  &quot;9&quot;: 24,
+        ///  &quot;:&quot;: 25,
+        ///  &quot;;&quot;: 26,
+        ///  &quot;&lt;&quot;: 27,
+        ///  &quot;=&quot;: 28,
+        ///  &quot;&gt;&quot;: 29,
+        ///  &quot;?&quot;: 30,
+        ///  &quot;@&quot;: 31,
+        ///  &quot;A&quot;: 32,
+        ///  &quot;B&quot;: 33,
+        ///  &quot;C&quot;: 34,
+        ///  &quot;D&quot;: 35,
+        ///  &quot;E&quot;: 36,
+        ///  &quot;F&quot;: 37,
+        ///  &quot;G&quot;: 38,
+        ///  &quot;H&quot;: 39,
+        ///  &quot;I&quot;: 40,
+        ///  &quot;J&quot;: 41,
+        ///  &quot;K&quot;: 42,
+        ///  &quot;L&quot;: 43,
+        ///  &quot;M&quot;: 44,
+        ///  &quot;N&quot;: 45,
+        ///  &quot;O&quot;: 46,
+        ///   [rest of string wa....
+        /// </summary>
+        internal static string vocab_GTP4 {
+            get {
+                return ResourceManager.GetString("vocab_GTP4", resourceCulture);
             }
         }
     }
