@@ -12,7 +12,7 @@
         {
             var mergeRules = new List<MergeRule>();
 
-            List<string> lines = GetTiles(mergesFilePath, Properties.Resources.MergeRules);
+            List<string> lines = GetFiles(mergesFilePath, Properties.Resources.MergeRules);
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -28,7 +28,7 @@
         {
             var vocabulary = new Dictionary<Token, int>();
 
-            List<string> lines = GetTiles(vocabularyFilePath, Properties.Resources.Vocabulary);
+            List<string> lines = GetFiles(vocabularyFilePath, Properties.Resources.Vocabulary);
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -46,7 +46,7 @@
             return vocabulary;
         }
 
-        private static List<string> GetTiles(string filePath, string fallBack)
+        private static List<string> GetFiles(string filePath, string fallBack)
         {
             List<string> lines;
 

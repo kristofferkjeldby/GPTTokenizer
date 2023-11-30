@@ -1,5 +1,6 @@
 ﻿namespace GPTTokenizer
 {
+    using GPTTokenizer.Extensions;
     using GPTTokenizer.Helpers;
     using GPTTokenizer.Models;
     using GPTTokenizer.Models.Merge;
@@ -9,38 +10,30 @@
 
     public class Tokenizer
     {
-        public List<MergeRule> MergeRules { get; }
+        private IEnumerable<MergeRule> MergeRules { get; }
 
-        public Dictionary<Token, int> Vocabulary { get; }
+        private IDictionary<Token, int> Vocabulary { get; }
 
         public Tokenizer(string mergesFile = null, string vocabularyFile = null)
         {
-            MergeRules = FileHelper.ReadMergeRules(mergesFile);
+            MergeRules = FileHelper.ReadMergeRules(mergesFile).OrderBy(r => r.Priority);
             Vocabulary = FileHelper.ReadVocabulary(vocabularyFile);
         }
 
-        public List<Token> Tokenize(string text, MergeLog mergeLog = null)
+        public IList<Token> Tokenize(string text, MergeLog mergeLog = null)
         {
-            var tokens = text.Replace(' ', Constants.Space).Select(c => new Token(c)).ToList();
+            var tokens = text.ToTokens();
 
             mergeLog?.Add(tokens);
 
-            foreach (var mergeRule in MergeRules.OrderBy(r => r.Priority))
+            foreach (var mergeRule in MergeRules)
             {
-                for (int i = 0; i < tokens.Count() - 1; i++)
+                for (int position = 0; position < tokens.Count() - 1; position++)
                 {
-                    var token = tokens[i];
-                    var nextToken = tokens[i + 1];
-
-                    if (mergeRule.Match(token, nextToken))
+                    if (mergeRule.Match(tokens, position))
                     {
-                        var mergedToken = Token.Merge(token, nextToken);
-
-                        if (!Vocabulary.ContainsKey(mergedToken))
+                        if (!tokens.Merge(position, Vocabulary))
                             throw new Exception($"Cannot merge to a token that is not in the vocabulary: {mergeRule}");
-
-                        tokens[i] = mergedToken;
-                        tokens.RemoveAt(i + 1);
 
                         mergeLog?.Add(tokens, mergeRule);
                     }

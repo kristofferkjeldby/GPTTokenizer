@@ -1,4 +1,6 @@
-﻿namespace GPTTokenizer.Models.Merge
+﻿using System.Collections.Generic;
+
+namespace GPTTokenizer.Models.Merge
 {
     public class MergeRule
     {
@@ -26,6 +28,11 @@
         public bool Match(Token firstToken, Token secondToken)
         {
             return FirstToken.Value.Equals(firstToken.Value) && SecondToken.Value.Equals(secondToken.Value);
+        }
+
+        public bool Match(IList<Token> tokens, int i)
+        {
+            return FirstToken.Value.Equals(tokens[i].Value) && SecondToken.Value.Equals(tokens[i + 1].Value);
         }
 
         public override string ToString()

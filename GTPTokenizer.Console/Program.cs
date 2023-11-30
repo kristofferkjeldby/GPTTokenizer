@@ -56,6 +56,8 @@
                         break;
                     }
             }
+
+            System.Console.ReadKey();
         }
 
         private static void WriteTokens(IEnumerable<Token> tokens, MergeRule mergeRule = null)

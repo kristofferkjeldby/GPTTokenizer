@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Models\Merge\MergeLogEntry.cs" />
     <Compile Include="Models\Merge\MergeLog.cs" />
