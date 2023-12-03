@@ -1,5 +1,6 @@
 ﻿namespace GPTTokenizer
 {
+    using GPTTokenizer.Extensions;
     using GPTTokenizer.Helpers;
     using GPTTokenizer.Models;
     using GPTTokenizer.Models.Merge;
@@ -26,17 +27,17 @@
 
         public IEnumerable<string> Tokenize(string text, MergeLog mergeLog = null)
         {
-            var tokens = string.Join(Constants.SpaceString, text.Replace(Constants.Space, Constants.SpaceToken).ToCharArray());
-            
-            mergeLog?.Add(tokens);
+            var tokens = text.ToStringBuilder();
+
+            mergeLog?.Add(tokens.FromStringBuilder());
 
             foreach (var mergeRule in MergeRules)
             {
-                if (mergeRule.Apply(ref tokens))
-                    mergeLog?.Add(tokens);
+                if (mergeRule.Apply(tokens, mergeLog != null))
+                    mergeLog?.Add(tokens.FromStringBuilder(), mergeRule);
             }
 
-            return tokens.Split(Constants.Space);
+            return tokens.FromStringBuilder();
         }
 
         public int CountTokens(string text)

@@ -2,13 +2,23 @@
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
+    using System.Text;
 
     internal static class Extensions
     {
-        public static IList<string> ToTokens(this string text)
+        public static StringBuilder ToStringBuilder(this string text)
         {
-            return text.Replace(Constants.Space, Constants.SpaceToken).Select(c => c.ToString()).ToList();
+            return new StringBuilder(
+                string.Concat(
+                    Constants.SpaceString, 
+                    string.Join(Constants.SpaceString, text.Replace(Constants.Space, Constants.SpaceToken).ToCharArray()), 
+                    Constants.SpaceString)
+                );
+        }
+
+        public static string[] FromStringBuilder(this StringBuilder tokens)
+        {
+            return tokens.ToString().Substring(1, tokens.Length - 2).Split(Constants.Space);
         }
 
         public static string[] Lines(this string text)

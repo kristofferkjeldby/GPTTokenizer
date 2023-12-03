@@ -34,11 +34,6 @@
 
             switch (command.ToLowerInvariant())
             {
-                case "speed":
-                    {
-                        SpeedTest();
-                        break;
-                    }
                 case "count":
                     {
                         Console.WriteLine($"Number of tokens: {tokenizer.CountTokens(text)}");
@@ -61,7 +56,7 @@
                     }
                 default:
                     {
-                        Console.WriteLine("Unknown command");
+                        SpeedTest();
                         break;
                     }
             }
@@ -73,19 +68,33 @@
         {
             var mstokenizer = new Microsoft.ML.Tokenizers.Tokenizer(new Microsoft.ML.Tokenizers.Bpe("./Data/vocab.json", "./Data/merges.txt"));
             var stopWatch = new Stopwatch();
-            var test = RandomString(5000);
 
-            stopWatch.Start();
-            var msResult = mstokenizer.Encode(test);
-            stopWatch.Stop();
+            var testStrings = new[] { RandomString(8000), " a b c ", "a b c", "Saturn is a planet that orbit around the Sun." };
 
-            Console.WriteLine($"Microsoft tokenizer found {msResult.Tokens.Count()} in {stopWatch.ElapsedMilliseconds} ms");
+            foreach (var testString in testStrings)
+            {
+                stopWatch.Start();
+                var msResult = mstokenizer.Encode(testString);
+                stopWatch.Stop();
 
-            stopWatch.Restart();
-            var result = tokenizer.Tokenize(test);
-            stopWatch.Stop();
+                Console.WriteLine($"Microsoft tokenizer found {msResult.Tokens.Count()} tokens in {stopWatch.ElapsedMilliseconds} ms");
+                if (msResult.Tokens.Count < 20) {
+                    Console.WriteLine(string.Join("|", msResult.Tokens));
+                    Console.WriteLine($"IDs: [{string.Join(", ", msResult.Ids)}]");
+                }
 
-            Console.WriteLine($"Your tokenizer found {result.Count()} in {stopWatch.ElapsedMilliseconds} ms");
+
+                stopWatch.Restart();
+                var result = tokenizer.Tokenize(testString);
+                stopWatch.Stop();
+
+                Console.WriteLine($"Your tokenizer found {result.Count()} tokens in {stopWatch.ElapsedMilliseconds} ms");
+                if (msResult.Tokens.Count < 20)
+                {
+                    Console.WriteLine(string.Join("|", result));
+                    Console.WriteLine($"IDs: [{string.Join(", ", tokenizer.GetIDs(result))}]");
+                }
+            }
         }
 
         private static string RandomString(int length)

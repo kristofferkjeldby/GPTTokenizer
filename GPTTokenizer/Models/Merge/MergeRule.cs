@@ -1,16 +1,14 @@
 ﻿namespace GPTTokenizer.Models.Merge
 {
+    using System.Text;
+
     public class MergeRule
     {
         private readonly string rule;
 
         private readonly string replacement;
-        private readonly string startWithRule;
-        private readonly string startWithReplacement;
         private readonly string containsRule;
         private readonly string containsReplacement;
-        private readonly string endWithRule;
-        private readonly string endWithReplacement;
 
         public int Priority { get; }
 
@@ -19,41 +17,25 @@
             rule = text;
             replacement = text.Replace(" ", string.Empty);
 
-            startWithRule = string.Concat(text, Constants.Space);
-            startWithReplacement = string.Concat(replacement, Constants.Space);
-
             containsRule = string.Concat(Constants.Space, text, Constants.Space);
             containsReplacement = string.Concat(Constants.Space, replacement, Constants.Space);
-
-            endWithRule = string.Concat(Constants.Space, text);
-            endWithReplacement = string.Concat(Constants.Space, replacement);
 
             Priority = priority;
         }
 
-        public bool Apply(ref string tokens)
+        public bool Apply(StringBuilder tokens, bool result = false)
         {
-            var result = false;
+            int length = 0;
 
-            if (tokens.StartsWith(startWithRule))
-            {
-                tokens = startWithReplacement + tokens.Substring(startWithRule.Length);
-                result = true;
-            }
+            if (result)
+                length = tokens.Length;
 
-            if (tokens.EndsWith(endWithRule))
-            {
-                tokens = tokens.Substring(0, tokens.Length - endWithRule.Length) + endWithReplacement;
-                result = true;
-            }
+            tokens.Replace(containsRule, containsReplacement);
 
-            if (tokens.Contains(containsRule))
-            {
-                tokens = tokens.Replace(containsRule, containsReplacement);
-                result = true;
-            }
+            if (!result)
+                return false;
 
-            return result;
+            return length != tokens.Length;
         }
 
         public override string ToString()
