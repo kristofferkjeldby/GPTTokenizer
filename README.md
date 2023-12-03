@@ -3,16 +3,8 @@ A GPT-3.5/GTP-4 compatible tokenizer
 
 To see how to use the tokenizer, check the "test" project GTPTokenizer.Console.
 
-Usage:
-
 ```
-GTPTokenizer.Console.exe count "Saturn is the sixth planet from the Sun."
-
-Number of tokens: 10
-```
-
-```
-GTPTokenizer.Console.exe tokenize "Conveyor Conveyor Conveyor"
+GPTTokenizer.Console.exe "Conveyor Conveyor Conveyor"
 
 |C|o|n|v|e|y|o|r|G|C|o|n|v|e|y|o|r|G|C|o|n|v|e|y|o|r|
 |C|on|v|e|y|o|r|G|C|o|n|v|e|y|o|r|G|C|o|n|v|e|y|o|r| ← Applied merge rule #8 (o n)
@@ -42,7 +34,7 @@ IDs: [1128, 69969, 100255, 100255]
 ```
 
 ```
-GTPTokenizer.Console.exe tokenize "Saturn is the sixth planet from the Sun."
+GPTTokenizer.Console.exe "Saturn is the sixth planet from the Sun."
 
 |S|a|t|u|r|n|G|i|s|G|t|h|e|G|s|i|x|t|h|G|p|l|a|n|e|t|G|f|r|o|m|G|t|h|e|G|S|u|n|.|
 |S|a|t|u|r|n|G|i|s|Gt|h|e|G|s|i|x|t|h|G|p|l|a|n|e|t|G|f|r|o|m|G|t|h|e|G|S|u|n|.| ← Applied merge rule #4 (G t)
