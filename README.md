@@ -70,3 +70,12 @@ GPTTokenizer.Console.exe "Saturn is the sixth planet from the Sun."
 
 IDs: [35982, 399, 374, 279, 26084, 11841, 505, 279, 8219, 13]
 ```
+
+Usage:
+
+```
+// Supported models are GTPModel.GTP4 and GTPModel.GTP3_5_turbo
+var tokenizer = new Tokenizer(GTPModel.GTP3_5_turbo);
+var tokens = tokenizer.Tokenize("This is a text");
+var ids = tokenizer.GetIDs(tokens);
+```
