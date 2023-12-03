@@ -15,7 +15,7 @@
         public MergeRule(string text, int priority)
         {
             rule = text;
-            replacement = text.Replace(" ", string.Empty);
+            replacement = text.Replace(Constants.SpaceString, string.Empty);
 
             containsRule = string.Concat(Constants.Space, text, Constants.Space);
             containsReplacement = string.Concat(Constants.Space, replacement, Constants.Space);
@@ -38,9 +38,6 @@
             return length != tokens.Length;
         }
 
-        public override string ToString()
-        {
-            return $"{rule}";
-        }
+        public override string ToString() => rule;
     }
 }

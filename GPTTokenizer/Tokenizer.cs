@@ -25,9 +25,9 @@
             Vocabulary = FileHelper.ReadVocabulary(vocabularyFile);
         }
 
-        public IEnumerable<string> Tokenize(string text, MergeLog mergeLog = null)
+        public IEnumerable<string> Tokenize(string input, MergeLog mergeLog = null)
         {
-            var tokens = text.ToStringBuilder();
+            var tokens = input.ToStringBuilder();
 
             mergeLog?.Add(tokens.FromStringBuilder());
 

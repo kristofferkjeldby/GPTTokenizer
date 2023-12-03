@@ -1,6 +1,6 @@
 ﻿namespace GPTTokenizer
 {
-    public struct Constants
+    internal struct Constants
     {
         public const char Space = ' ';
 
