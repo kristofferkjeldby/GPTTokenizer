@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F806CDE8-5639-4829-8679-3888225699D8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GTPTokenizer.Console</RootNamespace>
-    <AssemblyName>GTPTokenizer.Console</AssemblyName>
+    <RootNamespace>GPTTokenizer.Console</RootNamespace>
+    <AssemblyName>GPTTokenizer.Console</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

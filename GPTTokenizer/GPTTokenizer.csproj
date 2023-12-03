@@ -76,4 +76,6 @@
     <None Include="Resources\vocab_GTP4.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="Pack">
+  </Target>
 </Project>

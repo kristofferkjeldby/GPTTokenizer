@@ -1,4 +1,4 @@
-﻿namespace GTPTokenizer.Console
+﻿namespace GPTTokenizer.Console
 {
     using GPTTokenizer;
     using GPTTokenizer.Models;

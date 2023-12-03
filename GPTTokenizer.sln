@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTTokenizer", "GPTTokenizer\GPTTokenizer.csproj", "{938DC220-9E6A-4BBC-916B-A88C53604349}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTPTokenizer.Console", "GTPTokenizer.Console\GTPTokenizer.Console.csproj", "{F806CDE8-5639-4829-8679-3888225699D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTTokenizer.Console", "GPTTokenizer.Console\GPTTokenizer.Console.csproj", "{F806CDE8-5639-4829-8679-3888225699D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
