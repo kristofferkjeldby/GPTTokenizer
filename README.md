@@ -1,4 +1,4 @@
-# GTPTokenizer
+# GPTTokenizer
 A GPT-3.5/GTP-4 compatible tokenizer
 
 To see how to use the tokenizer, check the "test" project GTPTokenizer.Console.
