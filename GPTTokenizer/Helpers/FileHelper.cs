@@ -16,7 +16,7 @@
 
         public static IEnumerable<MergeRule> ReadMergeRules(GTPModel model)
         {
-            return ReadMergeRules(GetResource("merges", model).Lines());
+            return ReadMergeRules(GetResource(Constants.MergesPrefix, model).Lines());
         }
 
         private static IEnumerable<MergeRule> ReadMergeRules(string[] lines)
@@ -40,7 +40,7 @@
 
         public static Dictionary<string, int> ReadVocabulary(GTPModel model)
         {
-            return ReadVocabulary(GetResource("vocab", model).Lines());
+            return ReadVocabulary(GetResource(Constants.VocabularyPrefix, model).Lines());
         }
 
         private static Dictionary<string, int> ReadVocabulary(string[] lines)
@@ -49,15 +49,15 @@
 
             for (var i = 0; i < lines.Count(); i++)
             {
-                var parts = lines[i].Trim().Split(':').ToArray();
+                var parts = lines[i].Trim().Split(Constants.Colon).ToArray();
 
                 if (parts.Length < 2)
                     continue;
 
-                if (!int.TryParse(parts.Last().Trim(' ', ','), out var id))
+                if (!int.TryParse(parts.Last().Trim(Constants.Space, Constants.Comma), out var id))
                     continue;
 
-                vocabulary.Add(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"'), id);
+                vocabulary.Add(string.Join(Constants.ColonString, parts.Take(parts.Length - 1)).Trim(Constants.Space, Constants.Quote), id);
             }
 
             return vocabulary;
@@ -65,7 +65,7 @@
 
         private static string GetResource(string prefix, GTPModel model)
         {
-            return Properties.Resources.ResourceManager.GetString($"{prefix}_{model}");
+            return Properties.Resources.ResourceManager.GetString($"{prefix}{Constants.Underscore}{model}");
         }
     }
 }
