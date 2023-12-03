@@ -3,10 +3,16 @@
     using GPTTokenizer;
     using GPTTokenizer.Models;
     using GPTTokenizer.Models.Merge;
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
 
     internal class Program
     {
+        private static Tokenizer tokenizer = new Tokenizer(GTPModel.GTP3_5_turbo);
+        private static Random random = new Random();
+
         static void Main(string[] args)
         {
             string command;
@@ -19,20 +25,23 @@
             }
             else
             {
-                System.Console.WriteLine("Command:");
-                command = System.Console.ReadLine();
-                System.Console.WriteLine("Text:");
-                text = System.Console.ReadLine();
-                System.Console.WriteLine();
+                Console.WriteLine("Command:");
+                command = Console.ReadLine();
+                Console.WriteLine("Text:");
+                text = Console.ReadLine();
+                Console.WriteLine();
             }
-
-            var tokenizer = new Tokenizer(GTPModel.GTP3_5_turbo);
 
             switch (command.ToLowerInvariant())
             {
+                case "speed":
+                    {
+                        SpeedTest();
+                        break;
+                    }
                 case "count":
                     {
-                        System.Console.WriteLine($"Number of tokens: {tokenizer.CountTokens(text)}");
+                        Console.WriteLine($"Number of tokens: {tokenizer.CountTokens(text)}");
                         break;
                     }
                 case "tokenize":
@@ -45,28 +54,54 @@
                             WriteTokens(entry.Tokens, entry.MergeRule);
                         }
 
-                        System.Console.WriteLine();
-                        System.Console.WriteLine($"IDs: [{string.Join(", ", tokenizer.GetIDs(tokens))}]");
+                        Console.WriteLine();
+                        Console.WriteLine($"IDs: [{string.Join(", ", tokenizer.GetIDs(tokens))}]");
 
                         break;
                     }
                 default:
                     {
-                        System.Console.WriteLine("Unknown command");
+                        Console.WriteLine("Unknown command");
                         break;
                     }
             }
 
-            System.Console.ReadKey();
+            Console.ReadKey();
         }
 
-        private static void WriteTokens(IEnumerable<Token> tokens, MergeRule mergeRule = null)
+        private static void SpeedTest()
+        {
+            var mstokenizer = new Microsoft.ML.Tokenizers.Tokenizer(new Microsoft.ML.Tokenizers.Bpe("./Data/vocab.json", "./Data/merges.txt"));
+            var stopWatch = new Stopwatch();
+            var test = RandomString(5000);
+
+            stopWatch.Start();
+            var msResult = mstokenizer.Encode(test);
+            stopWatch.Stop();
+
+            Console.WriteLine($"Microsoft tokenizer found {msResult.Tokens.Count()} in {stopWatch.ElapsedMilliseconds} ms");
+
+            stopWatch.Restart();
+            var result = tokenizer.Tokenize(test);
+            stopWatch.Stop();
+
+            Console.WriteLine($"Your tokenizer found {result.Count()} in {stopWatch.ElapsedMilliseconds} ms");
+        }
+
+        private static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private static void WriteTokens(IEnumerable<string> tokens, MergeRule mergeRule = null)
         {
             var currentTokenString = string.Join("|", tokens);
             if (mergeRule == null)
-                System.Console.WriteLine($"|{currentTokenString}|");
+                Console.WriteLine($"|{currentTokenString}|");
             else
-                System.Console.WriteLine($"|{currentTokenString}| ← Applied merge rule #{mergeRule.Priority} ({mergeRule})");
+                Console.WriteLine($"|{currentTokenString}| ← Applied merge rule #{mergeRule.Priority} ({mergeRule})");
         }
     }
 }

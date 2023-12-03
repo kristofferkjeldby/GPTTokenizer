@@ -6,12 +6,12 @@
     {
         private List<MergeLogEntry> entries = new List<MergeLogEntry>();
 
-        public void Add(IEnumerable<Token> tokens)
+        public void Add(string tokens)
         {
             entries.Add(new MergeLogEntry(tokens));
         }
 
-        public void Add(IEnumerable<Token> tokens, MergeRule mergeRule)
+        public void Add(string tokens, MergeRule mergeRule)
         {
             entries.Add(new MergeLogEntry(tokens, mergeRule));
         }

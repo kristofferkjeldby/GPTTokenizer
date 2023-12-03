@@ -9,17 +9,17 @@
 
     internal static class FileHelper
     {
-        public static List<MergeRule> ReadMergeRules(string filePath) 
+        public static IEnumerable<MergeRule> ReadMergeRules(string filePath) 
         {
             return ReadMergeRules(File.ReadLines(filePath).ToArray());
         }
 
-        public static List<MergeRule> ReadMergeRules(GTPModel model)
+        public static IEnumerable<MergeRule> ReadMergeRules(GTPModel model)
         {
             return ReadMergeRules(GetResource("merges", model).Lines());
         }
 
-        private static List<MergeRule> ReadMergeRules(string[] lines)
+        private static IEnumerable<MergeRule> ReadMergeRules(string[] lines)
         {
             var mergeRules = new List<MergeRule>();
 
@@ -33,19 +33,19 @@
             return mergeRules;
         }
 
-        public static Dictionary<Token, int> ReadVocabulary(string filePath)
+        public static Dictionary<string, int> ReadVocabulary(string filePath)
         {
             return ReadVocabulary(File.ReadLines(filePath).ToArray());
         }
 
-        public static Dictionary<Token, int> ReadVocabulary(GTPModel model)
+        public static Dictionary<string, int> ReadVocabulary(GTPModel model)
         {
             return ReadVocabulary(GetResource("vocab", model).Lines());
         }
 
-        private static Dictionary<Token, int> ReadVocabulary(string[] lines)
+        private static Dictionary<string, int> ReadVocabulary(string[] lines)
         {
-            var vocabulary = new Dictionary<Token, int>();
+            var vocabulary = new Dictionary<string, int>();
 
             for (var i = 0; i < lines.Count(); i++)
             {
@@ -54,10 +54,10 @@
                 if (parts.Length < 2)
                     continue;
 
-                if (!int.TryParse(parts.Last().Trim(' ', ','), out var priority))
+                if (!int.TryParse(parts.Last().Trim(' ', ','), out var id))
                     continue;
 
-                vocabulary.Add(new Token(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"')), priority);
+                vocabulary.Add(string.Join(":", parts.Take(parts.Length - 1)).Trim(' ', '"'), id);
             }
 
             return vocabulary;

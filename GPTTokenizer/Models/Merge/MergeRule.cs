@@ -1,43 +1,64 @@
-﻿using System.Collections.Generic;
-
-namespace GPTTokenizer.Models.Merge
+﻿namespace GPTTokenizer.Models.Merge
 {
     public class MergeRule
     {
-        public Token FirstToken { get; }
+        private readonly string rule;
 
-        public Token SecondToken { get; }
+        private readonly string replacement;
+        private readonly string startWithRule;
+        private readonly string startWithReplacement;
+        private readonly string containsRule;
+        private readonly string containsReplacement;
+        private readonly string endWithRule;
+        private readonly string endWithReplacement;
 
         public int Priority { get; }
 
         public MergeRule(string text, int priority)
         {
-            var split = text.Split(new char[] { ' ' });
-            FirstToken = new Token(split[0]);
-            SecondToken = new Token(split[1]);
+            rule = text;
+            replacement = text.Replace(" ", string.Empty);
+
+            startWithRule = string.Concat(text, Constants.Space);
+            startWithReplacement = string.Concat(replacement, Constants.Space);
+
+            containsRule = string.Concat(Constants.Space, text, Constants.Space);
+            containsReplacement = string.Concat(Constants.Space, replacement, Constants.Space);
+
+            endWithRule = string.Concat(Constants.Space, text);
+            endWithReplacement = string.Concat(Constants.Space, replacement);
+
             Priority = priority;
         }
 
-        public MergeRule(Token firstToken, Token secondToken, int priority)
+        public bool Apply(ref string tokens)
         {
-            FirstToken = firstToken;
-            SecondToken = secondToken;
-            Priority = priority;
-        }
+            var result = false;
 
-        public bool Match(Token firstToken, Token secondToken)
-        {
-            return FirstToken.Value.Equals(firstToken.Value) && SecondToken.Value.Equals(secondToken.Value);
-        }
+            if (tokens.StartsWith(startWithRule))
+            {
+                tokens = startWithReplacement + tokens.Substring(startWithRule.Length);
+                result = true;
+            }
 
-        public bool Match(IList<Token> tokens, int i)
-        {
-            return FirstToken.Value.Equals(tokens[i].Value) && SecondToken.Value.Equals(tokens[i + 1].Value);
+            if (tokens.EndsWith(endWithRule))
+            {
+                tokens = tokens.Substring(0, tokens.Length - endWithRule.Length) + endWithReplacement;
+                result = true;
+            }
+
+            if (tokens.Contains(containsRule))
+            {
+                tokens = tokens.Replace(containsRule, containsReplacement);
+                result = true;
+            }
+
+            return result;
         }
 
         public override string ToString()
         {
-            return $"{FirstToken.Value} {SecondToken.Value}";
+            return $"{rule}";
         }
     }
 }

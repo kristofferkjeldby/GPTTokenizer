@@ -1,10 +1,8 @@
 ﻿namespace GPTTokenizer
 {
-    using GPTTokenizer.Extensions;
     using GPTTokenizer.Helpers;
     using GPTTokenizer.Models;
     using GPTTokenizer.Models.Merge;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,7 +10,7 @@
     {
         private IEnumerable<MergeRule> MergeRules { get; }
 
-        private IDictionary<Token, int> Vocabulary { get; }
+        private IDictionary<string, int> Vocabulary { get; }
 
         public Tokenizer(GTPModel model)
         {
@@ -26,27 +24,19 @@
             Vocabulary = FileHelper.ReadVocabulary(vocabularyFile);
         }
 
-        public IList<Token> Tokenize(string text, MergeLog mergeLog = null)
+        public IEnumerable<string> Tokenize(string text, MergeLog mergeLog = null)
         {
-            var tokens = text.ToTokens();
-
+            var tokens = string.Join(Constants.SpaceString, text.Replace(Constants.Space, Constants.SpaceToken).ToCharArray());
+            
             mergeLog?.Add(tokens);
 
             foreach (var mergeRule in MergeRules)
             {
-                for (int position = 0; position < tokens.Count() - 1; position++)
-                {
-                    if (mergeRule.Match(tokens, position))
-                    {
-                        if (!tokens.Merge(position, Vocabulary))
-                            throw new Exception($"Cannot merge to a token that is not in the vocabulary: {mergeRule}");
-
-                        mergeLog?.Add(tokens, mergeRule);
-                    }
-                }
+                if (mergeRule.Apply(ref tokens))
+                    mergeLog?.Add(tokens);
             }
 
-            return tokens;
+            return tokens.Split(Constants.Space);
         }
 
         public int CountTokens(string text)
@@ -54,14 +44,14 @@
             return Tokenize(text).Count();
         }
 
-        public int? GetID(Token token)
+        public int? GetID(string token)
         {
             if (Vocabulary.ContainsKey(token))
                 return Vocabulary[token];
             return null;
         }
 
-        public IEnumerable<int?> GetIDs(IEnumerable<Token> tokens)
+        public IEnumerable<int?> GetIDs(IEnumerable<string> tokens)
         {
             return tokens.Select(t => GetID(t));
         }

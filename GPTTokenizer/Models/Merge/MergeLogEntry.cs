@@ -6,18 +6,18 @@
 
     public class MergeLogEntry
     {
-        public MergeLogEntry(IEnumerable<Token> tokens)
+        public MergeLogEntry(string tokens)
         {
-            this.Tokens = tokens.ToArray();
+            this.Tokens = tokens.Split(Constants.Space);
         }
 
-        public MergeLogEntry(IEnumerable<Token> tokens, MergeRule mergeRule)
+        public MergeLogEntry(string tokens, MergeRule mergeRule)
         {
-            this.Tokens = tokens.ToArray();
+            this.Tokens = tokens.Split(Constants.Space);
             this.MergeRule = mergeRule;
         }
 
-        public Token[] Tokens;
+        public string[] Tokens;
 
         public MergeRule MergeRule {  get; set; }
     }

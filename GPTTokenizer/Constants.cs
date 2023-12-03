@@ -1,11 +1,13 @@
 ﻿namespace GPTTokenizer
 {
-    public static class Constants
+    public struct Constants
     {
-        public static char Space = ' ';
+        public const char Space = ' ';
 
-        public static char SpaceToken = 'Ġ';
+        public const string SpaceString = " ";
 
-        public static string Comment = "#";
+        public const char SpaceToken = 'Ġ';
+
+        public const string Comment = "#";
     }
 }
