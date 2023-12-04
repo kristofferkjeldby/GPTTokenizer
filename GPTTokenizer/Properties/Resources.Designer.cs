@@ -175,9 +175,9 @@ namespace GPTTokenizer.Properties {
         ///Ġ &lt;
         ///a [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string merges_GTP3_5_turbo {
+        internal static string merges_GPT3_5_turbo {
             get {
-                return ResourceManager.GetString("merges_GTP3_5_turbo", resourceCulture);
+                return ResourceManager.GetString("merges_GPT3_5_turbo", resourceCulture);
             }
         }
         
@@ -296,9 +296,9 @@ namespace GPTTokenizer.Properties {
         ///Ġ &lt;
         ///a [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string merges_GTP4 {
+        internal static string merges_GPT4 {
             get {
-                return ResourceManager.GetString("merges_GTP4", resourceCulture);
+                return ResourceManager.GetString("merges_GPT4", resourceCulture);
             }
         }
         
@@ -353,9 +353,9 @@ namespace GPTTokenizer.Properties {
         ///  &quot;O&quot;: 46,
         ///   [rest of string wa....
         /// </summary>
-        internal static string vocab_GTP3_5_turbo {
+        internal static string vocab_GPT3_5_turbo {
             get {
-                return ResourceManager.GetString("vocab_GTP3_5_turbo", resourceCulture);
+                return ResourceManager.GetString("vocab_GPT3_5_turbo", resourceCulture);
             }
         }
         
@@ -410,9 +410,9 @@ namespace GPTTokenizer.Properties {
         ///  &quot;O&quot;: 46,
         ///   [rest of string wa....
         /// </summary>
-        internal static string vocab_GTP4 {
+        internal static string vocab_GPT4 {
             get {
-                return ResourceManager.GetString("vocab_GTP4", resourceCulture);
+                return ResourceManager.GetString("vocab_GPT4", resourceCulture);
             }
         }
     }

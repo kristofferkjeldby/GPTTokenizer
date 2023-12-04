@@ -14,7 +14,7 @@
             return ReadMergeRules(File.ReadLines(filePath).ToArray());
         }
 
-        public static IEnumerable<MergeRule> ReadMergeRules(GTPModel model)
+        public static IEnumerable<MergeRule> ReadMergeRules(GPTModel model)
         {
             return ReadMergeRules(GetResource(Constants.MergesPrefix, model).Lines());
         }
@@ -38,7 +38,7 @@
             return ReadVocabulary(File.ReadLines(filePath).ToArray());
         }
 
-        public static Dictionary<string, int> ReadVocabulary(GTPModel model)
+        public static Dictionary<string, int> ReadVocabulary(GPTModel model)
         {
             return ReadVocabulary(GetResource(Constants.VocabularyPrefix, model).Lines());
         }
@@ -63,7 +63,7 @@
             return vocabulary;
         }
 
-        private static string GetResource(string prefix, GTPModel model)
+        private static string GetResource(string prefix, GPTModel model)
         {
             return Properties.Resources.ResourceManager.GetString($"{prefix}{Constants.Underscore}{model}");
         }

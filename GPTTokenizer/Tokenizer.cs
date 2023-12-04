@@ -13,7 +13,7 @@
 
         private IDictionary<string, int> Vocabulary { get; }
 
-        public Tokenizer(GTPModel model)
+        public Tokenizer(GPTModel model)
         {
             MergeRules = FileHelper.ReadMergeRules(model).OrderBy(r => r.Priority);
             Vocabulary = FileHelper.ReadVocabulary(model);

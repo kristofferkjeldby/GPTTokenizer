@@ -8,7 +8,7 @@
 
     internal class Program
     {
-        private static Tokenizer tokenizer = new Tokenizer(GTPModel.GTP3_5_turbo);
+        private static Tokenizer tokenizer = new Tokenizer(GPTModel.GPT3_5_turbo);
 
         static void Main(string[] args)
         {
