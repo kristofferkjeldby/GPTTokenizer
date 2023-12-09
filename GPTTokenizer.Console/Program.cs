@@ -12,9 +12,7 @@
 
         static void Main(string[] args)
         {
-            Console.WriteLine("GPTTokenizer");
-            Console.WriteLine("------------");
-            Console.WriteLine();
+            WriteHeader("GPTTokenizer");
 
             string input;
 
@@ -37,12 +35,8 @@
                 WriteTokens(entry.Tokens, entry.MergeRule);
             }
 
-            Console.WriteLine();
-            Console.WriteLine($"IDs: [{string.Join(", ", tokenizer.GetIDs(tokens))}]");
-
-            Console.WriteLine();
-            Console.WriteLine("Press any key ...");
-
+            Console.WriteLine($"\nIDs: [{string.Join(", ", tokenizer.GetIDs(tokens))}]");
+            Console.WriteLine("\nPress any key ...");
             Console.ReadKey();
         }
 
@@ -53,6 +47,13 @@
                 Console.WriteLine($"|{currentTokenString}|");
             else
                 Console.WriteLine($"|{currentTokenString}| ← Applied merge rule #{mergeRule.Priority} ({mergeRule})");
+        }
+
+        private static void WriteHeader(string text)
+        {
+            Console.WriteLine(text);
+            Console.WriteLine(new string('-', text.Length));
+            Console.WriteLine();
         }
     }
 }
