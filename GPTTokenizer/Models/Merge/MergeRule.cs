@@ -16,6 +16,7 @@
             rule = text;
 
             var split = text.Split(new char[] { Constants.Space });
+
             firstToken = vocabulary[split[0]];
             secondToken = vocabulary[split[1]];
             mergedToken = vocabulary[rule.Replace(Constants.SpaceString, string.Empty)];
@@ -29,7 +30,7 @@
 
             var count = tokens.Count;
 
-            for (int offset = 0; offset < count-1; offset++ )
+            for (int offset = 0; offset < count-1; offset++)
             {
                 var currentFirstToken = tokens[offset];
                 var currentSecondToken = tokens[offset+1];
