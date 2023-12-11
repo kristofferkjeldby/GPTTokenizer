@@ -2,23 +2,19 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text;
 
     internal static class Extensions
     {
-        public static StringBuilder ToStringBuilder(this string text)
+        public static List<int> ToInts(this string text, IDictionary<string, int> vocabulary)
         {
-            return new StringBuilder(
-                string.Concat(
-                    Constants.SpaceString, 
-                    string.Join(Constants.SpaceString, text.Replace(Constants.Space, Constants.SpaceToken).ToCharArray()), 
-                    Constants.SpaceString)
-                );
+            return text.Replace(Constants.Space, Constants.SpaceToken).ToCharArray().Select(c => vocabulary[c.ToString()]).ToList();
         }
 
-        public static string[] FromStringBuilder(this StringBuilder tokens)
+        public static string[] FromInts(this List<int> tokens, IDictionary<int, string> reverseVocabulary)
         {
-            return tokens.ToString().Substring(1, tokens.Length - 2).Split(Constants.Space);
+            return tokens.Select(t => reverseVocabulary[t]).ToArray();
         }
 
         public static string[] Lines(this string text)
@@ -35,6 +31,11 @@
             }
 
             return lines.ToArray();
+        }
+
+        public static string JsonUnescape(this string text)
+        {
+            return text.Replace("\\\"", "\"").Replace("\\\\", "\\");
         }
     }
 }

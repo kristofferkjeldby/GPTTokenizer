@@ -9,17 +9,17 @@
 
     internal static class FileHelper
     {
-        public static IEnumerable<MergeRule> ReadMergeRules(string filePath) 
+        public static IEnumerable<MergeRule> ReadMergeRules(string filePath, IDictionary<string, int> vocabulary) 
         {
-            return ReadMergeRules(File.ReadLines(filePath).ToArray());
+            return ReadMergeRules(File.ReadLines(filePath).ToArray(), vocabulary);
         }
 
-        public static IEnumerable<MergeRule> ReadMergeRules(GPTModel model)
+        public static IEnumerable<MergeRule> ReadMergeRules(GPTModel model, IDictionary<string, int> vocabulary)
         {
-            return ReadMergeRules(GetResource(Constants.MergesPrefix, model).Lines());
+            return ReadMergeRules(GetResource(Constants.MergesPrefix, model).Lines(), vocabulary);
         }
 
-        private static IEnumerable<MergeRule> ReadMergeRules(string[] lines)
+        private static IEnumerable<MergeRule> ReadMergeRules(string[] lines, IDictionary<string, int> vocabulary)
         {
             var mergeRules = new List<MergeRule>();
 
@@ -27,7 +27,7 @@
             {
                 if (lines[i].StartsWith(Constants.Comment))
                     continue;
-                mergeRules.Add(new MergeRule(lines[i], i));
+                mergeRules.Add(new MergeRule(lines[i], i, vocabulary));
             }
 
             return mergeRules;
@@ -57,7 +57,9 @@
                 if (!int.TryParse(parts.Last().Trim(Constants.Space, Constants.Comma), out var id))
                     continue;
 
-                vocabulary.Add(string.Join(Constants.ColonString, parts.Take(parts.Length - 1)).Trim(Constants.Space, Constants.Quote), id);
+                var value = string.Join(Constants.ColonString, parts.Take(parts.Length - 1)).Trim(Constants.Space);
+
+                vocabulary.Add(value.Substring(1, value.Length - 2).JsonUnescape(), id);
             }
 
             return vocabulary;

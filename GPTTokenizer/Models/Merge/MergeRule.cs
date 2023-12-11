@@ -1,41 +1,51 @@
 ﻿namespace GPTTokenizer.Models.Merge
 {
-    using System.Text;
+    using System.Collections.Generic;
 
     public class MergeRule
     {
         private readonly string rule;
-
-        private readonly string replacement;
-        private readonly string containsRule;
-        private readonly string containsReplacement;
+        private readonly int firstToken;
+        private readonly int secondToken;
+        private readonly int mergedToken;
 
         public int Priority { get; }
 
-        public MergeRule(string text, int priority)
+        public MergeRule(string text, int priority, IDictionary<string, int> vocabulary)
         {
             rule = text;
-            replacement = text.Replace(Constants.SpaceString, string.Empty);
 
-            containsRule = string.Concat(Constants.Space, text, Constants.Space);
-            containsReplacement = string.Concat(Constants.Space, replacement, Constants.Space);
+            var split = text.Split(new char[] { Constants.Space });
+            firstToken = vocabulary[split[0]];
+            secondToken = vocabulary[split[1]];
+            mergedToken = vocabulary[rule.Replace(Constants.SpaceString, string.Empty)];
 
             Priority = priority;
         }
 
-        public bool Apply(StringBuilder tokens, bool result = false)
+        public bool Apply(List<int> tokens)
         {
-            int length = 0;
+            var changed = false;
 
-            if (result)
-                length = tokens.Length;
+            var count = tokens.Count;
 
-            tokens.Replace(containsRule, containsReplacement);
+            for (int offset = 0; offset < count-1; offset++ )
+            {
+                var currentFirstToken = tokens[offset];
+                var currentSecondToken = tokens[offset+1];
 
-            if (!result)
-                return false;
+                if (currentFirstToken == firstToken && currentSecondToken == secondToken)
+                {
+                    changed = true;
+                    tokens[offset] = mergedToken;
+                    tokens.RemoveAt(offset + 1);
+                    offset++;
+                    count--;
+                }
+            }
 
-            return length != tokens.Length;
+            return changed;
+
         }
 
         public override string ToString() => rule;

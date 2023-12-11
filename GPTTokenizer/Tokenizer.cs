@@ -13,36 +13,40 @@
 
         private IDictionary<string, int> Vocabulary { get; }
 
+        private IDictionary<int, string> ReverseVocabulary { get; }
+
         public Tokenizer(GPTModel model)
         {
-            MergeRules = FileHelper.ReadMergeRules(model).OrderBy(r => r.Priority);
             Vocabulary = FileHelper.ReadVocabulary(model);
+            ReverseVocabulary = Vocabulary.ToDictionary(kv => kv.Value, kv => kv.Key);
+            MergeRules = FileHelper.ReadMergeRules(model, Vocabulary).OrderBy(r => r.Priority);
         }
 
         public Tokenizer(string mergesFile, string vocabularyFile)
         {
-            MergeRules = FileHelper.ReadMergeRules(mergesFile).OrderBy(r => r.Priority);
             Vocabulary = FileHelper.ReadVocabulary(vocabularyFile);
+            ReverseVocabulary = Vocabulary.ToDictionary(kv => kv.Value, kv => kv.Key);
+            MergeRules = FileHelper.ReadMergeRules(mergesFile, Vocabulary).OrderBy(r => r.Priority);
         }
 
         public IEnumerable<string> Tokenize(string input, MergeLog mergeLog = null)
         {
-            var tokens = input.ToStringBuilder();
+            var tokens = input.ToInts(Vocabulary);
 
-            mergeLog?.Add(tokens.FromStringBuilder());
+            mergeLog?.Add(tokens.FromInts(ReverseVocabulary));
 
             foreach (var mergeRule in MergeRules)
             {
-                if (mergeRule.Apply(tokens, mergeLog != null))
-                    mergeLog?.Add(tokens.FromStringBuilder(), mergeRule);
+                if (mergeRule.Apply(tokens))
+                    mergeLog?.Add(tokens.FromInts(ReverseVocabulary), mergeRule);
             }
 
-            return tokens.FromStringBuilder();
+            return tokens.FromInts(ReverseVocabulary);
         }
 
         public int CountTokens(string text)
         {
-            return Tokenize(text).Count();
+            return Tokenize(text, null).Count();
         }
 
         public int? GetID(string token)
